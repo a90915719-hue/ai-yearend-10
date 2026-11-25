@@ -98,6 +98,12 @@
   }
   .btn-listen.speaking{background:#fff;color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent)}
   .hint{margin:7px 0 0;font-size:11.6px;color:var(--sub)}
+  .edit-note{
+    margin:10px 0 2px;padding:10px 12px;border-radius:12px;text-align:left;
+    background:#fff8e6;border:1.5px dashed var(--gold);color:#4a3c1f;
+    font-size:12.4px;font-weight:700;line-height:1.55;word-break:keep-all;
+  }
+  .edit-note b{color:var(--accent)}
 
   .topic-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px;text-align:left}
   .topic-btn{
@@ -200,6 +206,7 @@
       <div class="sub-box" id="subBox">버튼을 누르시면 성수 향수공방 메종 릴리앙 연말 이용 안내를 목소리로 들려드립니다.</div>
       <button class="btn-listen" id="listenBtn" type="button">🔊 AI 비서 음성 안내 듣기</button>
       <p class="hint">접속 시 무음 대기 · 터치 시 재생 (유지비 0원 한국어 AI 음성)</p>
+      <p class="edit-note">💡 <b>AI 비서 안내 멘트와 매장 안내는 원하시는 문구로 언제든 자유롭게 변경할 수 있습니다.</b></p>
       <div class="topic-grid" id="topicGrid"></div>
     </div>
   </section>

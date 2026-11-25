@@ -1,0 +1,20 @@
+{
+  "name": "하프타임 크래프트 · AI 안내 비서",
+  "short_name": "하프타임 크래프",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f9f6f2",
+  "theme_color": "#4d3627",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

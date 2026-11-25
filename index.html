@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#111823">
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" href="./icon-192.png">
+<link rel="preload" as="image" href="./assistant.png">
+<link rel="preload" as="image" href="./assistant-talk.png">
+<title>연말 성수기 10곳 맞춤 AI 비서 전시장 &amp; 연락처 정리표 | 1인기업 양철배</title>
+<style>
+  :root{--gold:#e5b25c;--gold2:#f3ce8b;--night:#111823;--night2:#1d2839;--bg:#f3f0e9;--ink:#171a20;--sub:#6d7077;--card:#fff;--line:rgba(0,0,0,.09)}
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  body{background:#e7e2d6;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Malgun Gothic",sans-serif;font-size:16px;line-height:1.6}
+  .wrap{max-width:860px;margin:0 auto;background:var(--bg);padding-bottom:100px;box-shadow:0 12px 44px rgba(20,26,36,.15)}
+  .hero{position:relative;padding:28px 22px 58px;color:#fff;background:radial-gradient(120% 90% at 88% 4%, #e5b25c3d 0%, transparent 58%),linear-gradient(162deg, var(--night) 0%, #17202e 55%, var(--night2) 100%)}
+  .hero:after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:18px;background:var(--bg);border-radius:20px 20px 0 0}
+  .kicker{font-size:12px;font-weight:800;color:var(--gold2);letter-spacing:.06em;margin:0 0 8px}
+  .hero h1{margin:0 0 8px;font-size:27px;line-height:1.3;font-weight:900;word-break:keep-all}
+  .hero h1 em{font-style:normal;color:var(--gold2)}
+  .byline{margin:0 0 14px;font-size:13px;color:rgba(255,255,255,.78)}
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chips span{font-size:11.8px;padding:5px 10px;border-radius:999px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.22)}
+
+  .voice{margin:-40px 18px 0;position:relative;z-index:2;text-align:center}
+  .assistant-card{max-width:520px;margin:0 auto;background:#fff;border-radius:26px;padding:22px 18px 16px;box-shadow:0 16px 34px rgba(14,22,34,.18);border:1px solid rgba(0,0,0,.07)}
+  .avatar-stage{position:relative;width:196px;height:196px;margin:0 auto 10px;cursor:pointer}
+  .avatar-frame{position:relative;width:196px;height:196px;border-radius:44px;overflow:hidden;box-shadow:0 10px 24px rgba(12,20,32,.2),0 0 0 5px #fff,0 0 0 7px rgba(229,178,92,.4)}
+  .frame-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  #avOpen{opacity:0}
+  .btn-listen{width:100%;border:0;border-radius:15px;padding:15px;font-size:16.5px;font-weight:900;color:#2a1f0c;background:linear-gradient(135deg,var(--gold2),var(--gold));cursor:pointer;font-family:inherit;margin-top:8px}
+  .btn-listen.speaking{background:#fff;color:#a97c26;box-shadow:inset 0 0 0 2px var(--gold)}
+  .hint{font-size:12px;color:var(--sub);margin:6px 0 0}
+
+  .sec{padding:0 20px;margin-top:26px}
+  .sec h2{margin:0 0 10px;font-size:20px;font-weight:900}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:12px}
+  a.exhibit{display:block;position:relative;text-decoration:none;color:inherit;background:#fff;border-radius:18px;padding:15px 15px 13px;border:1px solid rgba(0,0,0,.08);box-shadow:0 3px 12px rgba(16,24,36,.06);overflow:hidden}
+  a.exhibit:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(180deg,var(--gold2),var(--gold))}
+  .ex-top{display:flex;align-items:flex-start;gap:10px}
+  .ex-no{width:28px;height:28px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;background:linear-gradient(180deg,#f7e3bb,#eccb8e);color:#3a2c11;flex:0 0 auto}
+  .ex-title{flex:1;min-width:0}
+  .ex-title b{display:block;font-size:16px;font-weight:900}
+  .ex-title span{display:block;font-size:12.2px;color:var(--sub)}
+  .ex-badge{display:inline-block;font-size:10.8px;font-weight:900;padding:2px 7px;border-radius:6px;background:#f0ecfb;color:#5c4a8a;margin-bottom:4px}
+  .ex-go{font-size:11.6px;font-weight:900;color:#8a6320;background:#f9efdb;border:1px solid #eeddb9;border-radius:999px;padding:5px 9px;white-space:nowrap}
+  .ex-chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
+  .ex-chips span{font-size:11.2px;color:#4c4f56;background:#f5f3ee;border-radius:7px;padding:3px 7px}
+  .ex-foot{margin:10px 0 0;padding-top:8px;border-top:1px dashed rgba(0,0,0,.1);font-size:11.8px;color:#555}
+
+  .tbl-wrap{background:#fff;border-radius:16px;border:1px solid var(--line);overflow-x:auto;padding:8px}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:600px}
+  th,td{padding:10px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+  th{background:#f8f5ee;font-weight:900;color:#2a2418}
+  code{background:#f1f5f9;padding:2px 6px;border-radius:6px;font-size:12px}
+  .tlink{display:inline-block;padding:5px 9px;border-radius:8px;background:#111823;color:#f3ce8b;text-decoration:none;font-weight:800;font-size:12px;white-space:nowrap}
+  .btn-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+  .abtn{border:0;border-radius:11px;padding:10px 14px;font-weight:900;font-size:13px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:5px}
+  .abtn-gold{background:linear-gradient(135deg,var(--gold2),var(--gold));color:#1a120b}
+  .abtn-dark{background:#111823;color:#fff}
+  .contact{background:#fffdf8;border:1.5px solid var(--gold);border-radius:18px;padding:16px;display:grid;gap:9px;margin-top:12px}
+  .cbtn{display:flex;align-items:center;justify-content:center;padding:13px;border-radius:13px;font-weight:900;text-decoration:none;font-size:15px}
+  .kakaoc{background:#FEE500;color:#3C1E1E}
+  .callc{background:#161d28;color:#fff}
+  footer{margin-top:26px;padding:16px;text-align:center;font-size:12px;color:#6d7077}
+  #toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#10b981;color:#fff;padding:10px 18px;border-radius:999px;font-weight:800;display:none;z-index:99}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <p class="kicker">2026 연말 성수기 · 공개 이메일 검증 10곳</p>
+    <h1>연말 성수기 <em>맞춤 AI 비서</em><br>10곳 통합 전시장 &amp; 정리표</h1>
+    <p class="byline">1인기업 양철배 · 네일·피부·에스테틱 / 예약제 레스토랑·파티룸 / 원데이클래스 공방</p>
+    <div class="chips"><span>공식 공개 이메일 10곳 검증</span><span>큰 입 움직임 AI 비서</span><span>1초 웹앱 설치</span><span>과장 문구 ZERO</span></div>
+  </header>
+
+  <section class="voice">
+    <div class="assistant-card" id="aCard">
+      <div class="avatar-stage" id="avStage">
+        <div class="avatar-frame" id="avFrame">
+          <img class="frame-img" src="./assistant.png" alt="AI 비서">
+          <img class="frame-img" id="avOpen" src="./assistant-talk.png" alt="">
+        </div>
+      </div>
+      <b style="font-size:15.5px">연말 성수기 전시장 안내 AI 비서</b>
+      <p class="hint" id="statusTxt">지금은 쉽니다 · 버튼을 누르면 10곳 안내를 시작합니다</p>
+      <button class="btn-listen" id="listenBtn" type="button">🔊 전시장 안내 듣기</button>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>1. 업체명 · 이메일 · 전화번호 · 샘플 링크 정리표</h2>
+    <div class="btn-row">
+      <button class="abtn abtn-gold" type="button" onclick="copyAll()">📋 10곳 정리표 통째로 복사</button>
+      <a class="abtn abtn-dark" href="./contacts.csv" download>⬇ CSV 엑셀 다운로드</a>
+      <a class="abtn abtn-dark" href="./contacts.json" target="_blank">📄 JSON 데이터 보기</a>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>No</th><th>업체명 / 업종</th><th>공개 이메일</th><th>전화번호</th><th>맞춤 샘플</th></tr></thead>
+        <tbody><tr>
+          <td>1</td>
+          <td><b>달리아에스테틱</b><br><small>피부·에스테틱 샵</small></td>
+          <td><code>thestyle@beautymade.com</code></td>
+          <td>02-3443-8333</td>
+          <td><a class="tlink" href="./dalia/" target="_blank" rel="noopener">샘플 열기 ↗</a></td>
+        </tr>
+<tr>
+          <td>2</td>
+          <td><b>반디네일</b><br><small>네일 살롱·케어</small></td>
+          <td><code>cs1@bandinail.com</code></td>
+          <td>02-539-0497</td>
+          <td><a class="tlink" href="./bandinail/" target="_blank" rel="noopener">샘플 열기 ↗</a></td>
+        </tr>
+<tr>
+          <td>3</td>
+          <td><b>온유네일</b><br><small>네일 샵·아트 살롱</small></td>
+          <td><code>info@onnu-nail.com</code></td>
+          <td>공식 사이트·이메일 문의</td>
+          <td><a class="tlink" href="./onnunail/" target="_blank" rel="noopener">샘플 열기 ↗</a></td>
+        </tr>
+<tr>
+          <td>4</td>
+          <td><b>정식당 서울</b><br><small>연말 예약제 레스토랑</small></td>
+          <td><code>reservation@jungsik.kr</code></td>
+          <td>02-517-4654</td>
+          <td><a class="tlink" href="./jungsik/" target="_blank" rel="noopener">샘플 열기 ↗</a></td>
+        </tr>
+<tr>
+          <td>5</td>
+          <td><b>모드라운지</b><br><small>연말 모임 파티룸</small></td>
+          <td><code>modlounge.biz@modparty.co.kr</code></td>
+          <td>070-4138-1898</td>
+          <td><a class="tlink" href="./modlounge/" target="_blank" rel="noopener">샘플 열기 ↗</a></td>
+        </tr>
+<tr>
+          <td>6</td>
+          <td><b>라르크앙씨엘</b><br><small>향수·캔들 원데이클래스</small></td>
+          <td><code>dudtns0313@naver.com</code></td>
+          <td>0507-1403-6042</td>
+          <td><a class="tlink" href="./larcenciel/" target="_blank" rel="noopener">샘플 열기 ↗</a></td>
+        </tr>
+<tr>
+          <td>7</td>
+          <td><b>성수 향수공방 메종 릴리앙</b><br><small>향수 원데이클래스</small></td>
+          <td><code>contact@maisonlilyan.com</code></td>
+          <td>010-8309-8492</td>
+          <td><a class="tlink" href="./maisonlilyan/" target="_blank" rel="noopener">샘플 열기 ↗</a></td>
+        </tr>
+<tr>
+          <td>8</td>
+          <td><b>하프타임 크래프트</b><br><small>가죽 원데이클래스 공방</small></td>
+          <td><code>combofamily@gmail.com</code></td>
+          <td>070-8064-5714</td>
+          <td><a class="tlink" href="./halftimecraft/" target="_blank" rel="noopener">샘플 열기 ↗</a></td>
+        </tr>
+<tr>
+          <td>9</td>
+          <td><b>스타일리스트제비</b><br><small>가죽 원데이클래스 공방</small></td>
+          <td><code>wish2me@wish2me.com</code></td>
+          <td>0507-1428-7447</td>
+          <td><a class="tlink" href="./stylistjb/" target="_blank" rel="noopener">샘플 열기 ↗</a></td>
+        </tr>
+<tr>
+          <td>10</td>
+          <td><b>그래머시 플라워</b><br><small>플라워 원데이클래스</small></td>
+          <td><code>gramercyflower@gmail.com</code></td>
+          <td>02-599-2525</td>
+          <td><a class="tlink" href="./gramercyflower/" target="_blank" rel="noopener">샘플 열기 ↗</a></td>
+        </tr></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>2. 맞춤 AI 비서 시연 샘플 10곳 (눌러서 바로 체험)</h2>
+    <div class="grid"><a class="exhibit" href="./dalia/" target="_blank" rel="noopener">
+          <div class="ex-top">
+            <span class="ex-no">1</span>
+            <div class="ex-title">
+              <span class="ex-badge demo">피부·에스테틱 샵</span>
+              <b>달리아에스테틱</b>
+              <span>연말 모임 전 피부·윤곽 집중 케어</span>
+            </div>
+            <span class="ex-go">샘플 체험 ↗</span>
+          </div>
+          <div class="ex-chips"><span>맞춤 피부 관리</span><span>얼굴 윤곽 케어</span><span>웨딩·연말 케어</span><span>사전 예약제</span></div>
+          <p class="ex-foot">📧 <b>thestyle@beautymade.com</b> · 📞 02-3443-8333</p>
+        </a>
+<a class="exhibit" href="./bandinail/" target="_blank" rel="noopener">
+          <div class="ex-top">
+            <span class="ex-no">2</span>
+            <div class="ex-title">
+              <span class="ex-badge demo">네일 살롱·케어</span>
+              <b>반디네일</b>
+              <span>12월 홀리데이 젤네일·손발 케어</span>
+            </div>
+            <span class="ex-go">샘플 체험 ↗</span>
+          </div>
+          <div class="ex-chips"><span>홀리데이 젤 컬러</span><span>손·발톱 케어</span><span>네일 스타일 상담</span><span>사전 문의</span></div>
+          <p class="ex-foot">📧 <b>cs1@bandinail.com</b> · 📞 02-539-0497</p>
+        </a>
+<a class="exhibit" href="./onnunail/" target="_blank" rel="noopener">
+          <div class="ex-top">
+            <span class="ex-no">3</span>
+            <div class="ex-title">
+              <span class="ex-badge demo">네일 샵·아트 살롱</span>
+              <b>온유네일</b>
+              <span>연말 맞춤 네일아트·디자인 예약</span>
+            </div>
+            <span class="ex-go">샘플 체험 ↗</span>
+          </div>
+          <div class="ex-chips"><span>맞춤 네일아트</span><span>시즌 디자인</span><span>신사동 살롱</span><span>사전 예약 안내</span></div>
+          <p class="ex-foot">📧 <b>info@onnu-nail.com</b> · 📞 공식 사이트·이메일 문의</p>
+        </a>
+<a class="exhibit" href="./jungsik/" target="_blank" rel="noopener">
+          <div class="ex-top">
+            <span class="ex-no">4</span>
+            <div class="ex-title">
+              <span class="ex-badge demo">연말 예약제 레스토랑</span>
+              <b>정식당 서울</b>
+              <span>12월 연말 모임·기념일 코스 예약</span>
+            </div>
+            <span class="ex-go">샘플 체험 ↗</span>
+          </div>
+          <div class="ex-chips"><span>사전 예약제</span><span>런치·디너 코스</span><span>프라이빗 다이닝</span><span>청담동 위치</span></div>
+          <p class="ex-foot">📧 <b>reservation@jungsik.kr</b> · 📞 02-517-4654</p>
+        </a>
+<a class="exhibit" href="./modlounge/" target="_blank" rel="noopener">
+          <div class="ex-top">
+            <span class="ex-no">5</span>
+            <div class="ex-title">
+              <span class="ex-badge demo">연말 모임 파티룸</span>
+              <b>모드라운지</b>
+              <span>송년회·크리스마스 단독 대관</span>
+            </div>
+            <span class="ex-go">샘플 체험 ↗</span>
+          </div>
+          <div class="ex-chips"><span>단독 공간 대관</span><span>연말 송년회</span><span>기업 워크숍</span><span>강남·홍대 지점</span></div>
+          <p class="ex-foot">📧 <b>modlounge.biz@modparty.co.kr</b> · 📞 070-4138-1898</p>
+        </a>
+<a class="exhibit" href="./larcenciel/" target="_blank" rel="noopener">
+          <div class="ex-top">
+            <span class="ex-no">6</span>
+            <div class="ex-title">
+              <span class="ex-badge demo">향수·캔들 원데이클래스</span>
+              <b>라르크앙씨엘</b>
+              <span>연말 선물·커플 향수·캔들 만들기</span>
+            </div>
+            <span class="ex-go">샘플 체험 ↗</span>
+          </div>
+          <div class="ex-chips"><span>향수·캔들 클래스</span><span>사전 예약제</span><span>기업·단체 출강</span><span>매일 10시~21시</span></div>
+          <p class="ex-foot">📧 <b>dudtns0313@naver.com</b> · 📞 0507-1403-6042</p>
+        </a>
+<a class="exhibit" href="./maisonlilyan/" target="_blank" rel="noopener">
+          <div class="ex-top">
+            <span class="ex-no">7</span>
+            <div class="ex-title">
+              <span class="ex-badge demo">향수 원데이클래스</span>
+              <b>성수 향수공방 메종 릴리앙</b>
+              <span>성수동 연말 커플·친구 조향 체험</span>
+            </div>
+            <span class="ex-go">샘플 체험 ↗</span>
+          </div>
+          <div class="ex-chips"><span>성수동 향수공방</span><span>커플·친구 체험</span><span>매일 10시~21시</span><span>당일 수령</span></div>
+          <p class="ex-foot">📧 <b>contact@maisonlilyan.com</b> · 📞 010-8309-8492</p>
+        </a>
+<a class="exhibit" href="./halftimecraft/" target="_blank" rel="noopener">
+          <div class="ex-top">
+            <span class="ex-no">8</span>
+            <div class="ex-title">
+              <span class="ex-badge demo">가죽 원데이클래스 공방</span>
+              <b>하프타임 크래프트</b>
+              <span>연말 수제 가죽 지갑·키링 선물 제작</span>
+            </div>
+            <span class="ex-go">샘플 체험 ↗</span>
+          </div>
+          <div class="ex-chips"><span>수제 가죽 공방</span><span>카드지갑·키링</span><span>이니셜 각인</span><span>성동구 1층 공방</span></div>
+          <p class="ex-foot">📧 <b>combofamily@gmail.com</b> · 📞 070-8064-5714</p>
+        </a>
+<a class="exhibit" href="./stylistjb/" target="_blank" rel="noopener">
+          <div class="ex-top">
+            <span class="ex-no">9</span>
+            <div class="ex-title">
+              <span class="ex-badge demo">가죽 원데이클래스 공방</span>
+              <b>스타일리스트제비</b>
+              <span>서촌 감성 가죽공예 체험·선물 제작</span>
+            </div>
+            <span class="ex-go">샘플 체험 ↗</span>
+          </div>
+          <div class="ex-chips"><span>종로 서촌 공방</span><span>가죽공예 체험</span><span>선물·주문제작</span><span>사전 예약</span></div>
+          <p class="ex-foot">📧 <b>wish2me@wish2me.com</b> · 📞 0507-1428-7447</p>
+        </a>
+<a class="exhibit" href="./gramercyflower/" target="_blank" rel="noopener">
+          <div class="ex-top">
+            <span class="ex-no">10</span>
+            <div class="ex-title">
+              <span class="ex-badge demo">플라워 원데이클래스</span>
+              <b>그래머시 플라워</b>
+              <span>크리스마스 리스·트리·연말 꽃다발 클래스</span>
+            </div>
+            <span class="ex-go">샘플 체험 ↗</span>
+          </div>
+          <div class="ex-chips"><span>크리스마스 리스</span><span>플라워 원데이클래스</span><span>연말 꽃다발</span><span>서초 반포 위치</span></div>
+          <p class="ex-foot">📧 <b>gramercyflower@gmail.com</b> · 📞 02-599-2525</p>
+        </a></div>
+  </section>
+
+  <section class="sec">
+    <h2>3. 제작 문의 (1인기업 양철배)</h2>
+    <div class="contact">
+      <a class="cbtn kakaoc" href="https://qr.kakao.com/talk/i5Owia7P_L48dp7IxoxgLOu_SuE-" target="_blank" rel="noopener">🟡 카카오톡 문의하기 (ID: yang3919)</a>
+      <a class="cbtn callc" href="tel:01090915719">📞 제작자 직통 전화 (010-9091-5719)</a>
+    </div>
+  </section>
+
+  <footer>
+    본 전시장의 10개 샘플은 공식 홈페이지에 공개된 연락처·이메일 정보를 바탕으로 제작된 시연 제안서입니다.<br>
+    실제 납품 계약 전 예시 페이지이며, 허위·과장 문구를 사용하지 않습니다.
+  </footer>
+</div>
+<div id="toast">복사되었습니다!</div>
+<script>
+const SUMMARY_TEXT = "1. 달리아에스테틱 (피부·에스테틱 샵) | 이메일: thestyle@beautymade.com | 전화: 02-3443-8333 | 샘플: https://a90915719-hue.github.io/ai-yearend-10/dalia/\n2. 반디네일 (네일 살롱·케어) | 이메일: cs1@bandinail.com | 전화: 02-539-0497 | 샘플: https://a90915719-hue.github.io/ai-yearend-10/bandinail/\n3. 온유네일 (네일 샵·아트 살롱) | 이메일: info@onnu-nail.com | 전화: 공식 사이트·이메일 문의 | 샘플: https://a90915719-hue.github.io/ai-yearend-10/onnunail/\n4. 정식당 서울 (연말 예약제 레스토랑) | 이메일: reservation@jungsik.kr | 전화: 02-517-4654 | 샘플: https://a90915719-hue.github.io/ai-yearend-10/jungsik/\n5. 모드라운지 (연말 모임 파티룸) | 이메일: modlounge.biz@modparty.co.kr | 전화: 070-4138-1898 | 샘플: https://a90915719-hue.github.io/ai-yearend-10/modlounge/\n6. 라르크앙씨엘 (향수·캔들 원데이클래스) | 이메일: dudtns0313@naver.com | 전화: 0507-1403-6042 | 샘플: https://a90915719-hue.github.io/ai-yearend-10/larcenciel/\n7. 성수 향수공방 메종 릴리앙 (향수 원데이클래스) | 이메일: contact@maisonlilyan.com | 전화: 010-8309-8492 | 샘플: https://a90915719-hue.github.io/ai-yearend-10/maisonlilyan/\n8. 하프타임 크래프트 (가죽 원데이클래스 공방) | 이메일: combofamily@gmail.com | 전화: 070-8064-5714 | 샘플: https://a90915719-hue.github.io/ai-yearend-10/halftimecraft/\n9. 스타일리스트제비 (가죽 원데이클래스 공방) | 이메일: wish2me@wish2me.com | 전화: 0507-1428-7447 | 샘플: https://a90915719-hue.github.io/ai-yearend-10/stylistjb/\n10. 그래머시 플라워 (플라워 원데이클래스) | 이메일: gramercyflower@gmail.com | 전화: 02-599-2525 | 샘플: https://a90915719-hue.github.io/ai-yearend-10/gramercyflower/";
+function copyAll() {
+  navigator.clipboard.writeText(SUMMARY_TEXT).then(() => {
+    const t = document.getElementById('toast');
+    t.style.display = 'block';
+    setTimeout(() => t.style.display = 'none', 1800);
+  });
+}
+const avOpen = document.getElementById('avOpen');
+const avFrame = document.getElementById('avFrame');
+const listenBtn = document.getElementById('listenBtn');
+const statusTxt = document.getElementById('statusTxt');
+let audioEl = null, playing = false, rafId = null;
+
+function stop() {
+  if (audioEl) { try { audioEl.pause(); audioEl.currentTime = 0; } catch(e){} }
+  if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+  playing = false;
+  listenBtn.classList.remove('speaking');
+  listenBtn.textContent = '🔊 전시장 안내 듣기';
+  statusTxt.textContent = '지금은 쉽니다 · 버튼을 누르면 10곳 안내를 시작합니다';
+  avOpen.style.opacity = 0;
+  avFrame.style.transform = '';
+}
+async function togglePlay() {
+  if (playing) { stop(); return; }
+  audioEl = new Audio('./intro.mp3');
+  playing = true;
+  listenBtn.classList.add('speaking');
+  listenBtn.textContent = '⏹ 안내 멈추기';
+  statusTxt.textContent = '🔊 연말 성수기 10곳 전시장 안내 중…';
+  audioEl.onended = stop;
+  try {
+    await audioEl.play();
+    function frame(ts) {
+      if (!playing) return;
+      const g = Math.sin(ts * 0.003) > -0.55 ? 1 : 0;
+      const e = (Math.sin(ts * 0.018) * 0.5 + 0.5) * g * 0.85;
+      avOpen.style.opacity = e.toFixed(3);
+      avFrame.style.transform = `scale(${(1 + e * 0.012).toFixed(4)})`;
+      rafId = requestAnimationFrame(frame);
+    }
+    rafId = requestAnimationFrame(frame);
+  } catch(e) { stop(); }
+}
+listenBtn.onclick = togglePlay;
+document.getElementById('avStage').onclick = togglePlay;
+if ('serviceWorker' in navigator) { navigator.serviceWorker.register('./sw.js').catch(() => {}); }
+</script>
+</body>
+</html>

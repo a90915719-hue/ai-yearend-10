@@ -1,0 +1,20 @@
+{
+  "name": "달리아에스테틱 · AI 안내 비서",
+  "short_name": "달리아에스테틱",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#fdf6f8",
+  "theme_color": "#9b3d63",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

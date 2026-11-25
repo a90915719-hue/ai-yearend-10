@@ -1,0 +1,20 @@
+{
+  "name": "성수 향수공방 메종 릴리앙 · AI 안내 비서",
+  "short_name": "성수 향수공방 ",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#fbf7f3",
+  "theme_color": "#7a4b2a",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

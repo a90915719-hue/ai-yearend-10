@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#2b2d6e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="모드라운지">
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" href="./icon-192.png">
+<link rel="apple-touch-icon" href="./icon-192.png">
+<link rel="preload" as="image" href="../assistant.png">
+<link rel="preload" as="image" href="../assistant-talk.png">
+<title>모드라운지 · 말하는 웹사이트 AI 비서 샘플</title>
+<style>
+  :root{
+    --accent:#2b2d6e;
+    --accent2:#484ca8;
+    --gold:#e5b25c;
+    --gold2:#f3ce8b;
+    --bg:#f5f6fc;
+    --ink:#171a20;
+    --sub:#666a73;
+    --card:#ffffff;
+    --line:rgba(0,0,0,.08);
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  body{
+    background:#e8e4dc;color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Malgun Gothic",sans-serif;
+    font-size:16px;line-height:1.6;
+  }
+  .wrap{max-width:460px;margin:0 auto;background:var(--bg);padding-bottom:110px;min-height:100vh;box-shadow:0 0 36px rgba(18,24,36,.12)}
+  .ribbon{
+    background:#141b26;color:#f5efe4;font-size:12px;line-height:1.5;text-align:center;
+    padding:9px 12px;border-bottom:1px solid rgba(229,178,92,.35);
+  }
+  .ribbon b{color:var(--gold2)}
+  .hero{
+    position:relative;overflow:hidden;padding:22px 20px 56px;color:#fff;
+    background:
+      radial-gradient(120% 90% at 88% 6%, rgba(243,206,139,.28) 0%, transparent 56%),
+      linear-gradient(155deg, var(--accent) 0%, var(--accent2) 100%);
+  }
+  .hero:after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:18px;background:var(--bg);border-radius:20px 20px 0 0}
+  .hero-badge{
+    display:inline-block;padding:5px 12px;border-radius:999px;font-size:11.8px;font-weight:800;
+    background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.42);margin-bottom:10px;
+  }
+  .hero h1{margin:0 0 6px;font-size:25px;font-weight:900;letter-spacing:-.6px;line-height:1.28;word-break:keep-all}
+  .hero .loc{font-size:12.6px;opacity:.88;margin:0 0 10px}
+  .hero .tagline{margin:0;font-size:14px;line-height:1.58;opacity:.95;word-break:keep-all}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:13px}
+  .chips span{font-size:11.6px;font-weight:700;padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.28)}
+
+  /* 큰 입 움직임 AI 비서 스튜디오 카드 */
+  .voice-sec{margin:-38px 14px 0;position:relative;z-index:2}
+  .assistant-card{
+    background:#fff;border:1.5px solid rgba(0,0,0,.07);border-radius:26px;padding:20px 16px 16px;
+    box-shadow:0 14px 32px rgba(15,23,42,.14);text-align:center;
+  }
+  .live-pill{
+    display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:999px;
+    font-size:11.8px;font-weight:800;background:#f4f2ec;color:var(--accent);margin-bottom:12px;
+  }
+  .live-dot{width:8px;height:8px;border-radius:50%;background:var(--accent2)}
+  .speaking .live-pill{background:var(--accent);color:#fff}
+  .speaking .live-dot{background:#ffe28a;animation:pulse 1s infinite}
+  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.35)}}
+
+  .avatar-stage{position:relative;width:210px;height:210px;margin:0 auto 10px;cursor:pointer}
+  .halo{
+    position:absolute;inset:-14px;border-radius:50%;opacity:.55;pointer-events:none;
+    background:radial-gradient(circle, rgba(229,178,92,.38) 0%, transparent 70%);
+  }
+  .avatar-frame{
+    position:relative;width:210px;height:210px;border-radius:46px;overflow:hidden;background:#e9ebec;
+    box-shadow:0 10px 26px rgba(12,20,32,.2),0 0 0 5px #fff,0 0 0 7px rgba(229,178,92,.45);
+    will-change:transform;transition:transform .12s ease-out;
+  }
+  .frame-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+  #avOpen{opacity:0;will-change:opacity}
+
+  .eq-bars{display:flex;align-items:flex-end;justify-content:center;gap:3px;height:20px;margin:6px 0 8px}
+  .eq-bar{width:4px;height:4px;border-radius:4px;background:linear-gradient(180deg, var(--accent2), var(--gold));transition:height .06s linear}
+
+  .sub-box{
+    background:#141b26;color:#fff;border-radius:14px;padding:11px 13px;font-size:13.8px;font-weight:700;
+    line-height:1.5;min-height:54px;display:flex;align-items:center;justify-content:center;
+    word-break:keep-all;border:1.5px solid rgba(229,178,92,.4);margin-bottom:12px;
+  }
+  .btn-listen{
+    width:100%;border:0;border-radius:15px;padding:15px 14px;font-size:16.5px;font-weight:900;
+    color:#fff;background:linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+    box-shadow:0 8px 18px rgba(0,0,0,.16);cursor:pointer;font-family:inherit;
+  }
+  .btn-listen.speaking{background:#fff;color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent)}
+  .hint{margin:7px 0 0;font-size:11.6px;color:var(--sub)}
+
+  .topic-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px;text-align:left}
+  .topic-btn{
+    border:1.5px solid var(--line);background:#faf9f6;border-radius:13px;padding:10px 10px;
+    display:flex;align-items:center;gap:8px;cursor:pointer;font-family:inherit;
+  }
+  .topic-btn.active{border-color:var(--accent);background:#fff;box-shadow:0 4px 12px rgba(0,0,0,.07)}
+  .topic-btn .ico{font-size:18px;flex:0 0 auto}
+  .topic-btn b{display:block;font-size:12.8px;color:var(--ink);line-height:1.25}
+  .topic-btn span{display:block;font-size:11px;color:var(--sub)}
+
+  .sec{padding:0 16px;margin-top:22px}
+  .sec h2{margin:0 0 10px;font-size:17px;font-weight:900;display:flex;align-items:center;gap:7px}
+  .sec h2:before{content:"";width:4px;height:16px;border-radius:2px;background:var(--accent)}
+
+  .menu-list{display:grid;gap:9px}
+  .menu-item{
+    background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px 14px;
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+  }
+  .menu-item b{display:block;font-size:14.4px;color:var(--ink)}
+  .menu-item small{display:block;font-size:12px;color:var(--sub);margin-top:2px}
+  .menu-tag{
+    flex:0 0 auto;font-size:11.4px;font-weight:800;color:var(--accent);
+    background:var(--bg);border:1px solid rgba(0,0,0,.08);padding:5px 9px;border-radius:999px;white-space:nowrap;
+  }
+
+  .info-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:15px}
+  .info-row{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px dashed var(--line);font-size:13.2px}
+  .info-row:last-child{border-bottom:none}
+  .info-row span{color:var(--sub);flex:0 0 auto}
+  .info-row b{color:var(--ink);text-align:right;word-break:break-all}
+
+  .cta-box{
+    background:#fffdf8;border:1.5px solid var(--gold);border-radius:18px;padding:16px 14px;
+    display:grid;gap:9px;
+  }
+  .cta-box .ct{margin:0;text-align:center;font-size:14.5px;font-weight:900;color:#2a2418}
+  .cta-box .cs{margin:-4px 0 2px;text-align:center;font-size:12px;color:#6c6250}
+  .cbtn{
+    display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:13px 12px;
+    border-radius:13px;font-size:14.8px;font-weight:900;text-decoration:none;border:0;cursor:pointer;font-family:inherit;
+  }
+  .cbtn-shop{background:linear-gradient(135deg, var(--accent), var(--accent2));color:#fff}
+  .cbtn-kakao{background:#FEE500;color:#3C1E1E}
+  .cbtn-maker{background:#182232;color:#fff}
+  .cbtn-back{background:#fff;color:var(--ink);border:1.5px solid #d5cfc2;font-size:13.5px}
+
+  /* 1초 PWA 설치 플로팅 배너 & 오버레이 */
+  #pwaBanner{
+    position:fixed;bottom:12px;left:50%;transform:translateX(-50%);width:92%;max-width:430px;
+    background:#141b26;color:#fff;border:2px solid var(--gold);border-radius:16px;padding:10px 12px;
+    display:flex;align-items:center;justify-content:space-between;gap:8px;z-index:900;
+    box-shadow:0 10px 26px rgba(0,0,0,.35);
+  }
+  #pwaBanner b{display:block;font-size:13px;color:var(--gold2)}
+  #pwaBanner span{font-size:11px;color:#cbd5e1}
+  #pwaInstBtn{
+    background:linear-gradient(135deg, var(--gold2), var(--gold));color:#1a120b;border:0;
+    border-radius:10px;padding:9px 12px;font-size:12.5px;font-weight:900;cursor:pointer;white-space:nowrap;
+  }
+  #pwaModal{
+    position:fixed;inset:0;background:rgba(0,0,0,.68);z-index:999;display:none;
+    align-items:center;justify-content:center;padding:16px;
+  }
+  #pwaModal.open{display:flex}
+  .modal-card{background:#fff;border-radius:20px;padding:20px 16px;max-width:360px;width:100%;text-align:center}
+  .modal-card h3{margin:0 0 8px;font-size:17px;font-weight:900}
+  .modal-card p{margin:0 0 12px;font-size:13px;color:#475569;line-height:1.55;text-align:left}
+  .modal-close{width:100%;padding:11px;border-radius:12px;border:0;background:#141b26;color:#fff;font-weight:800;cursor:pointer}
+  footer{margin-top:22px;padding:14px 16px;text-align:center;font-size:11.3px;color:#7a7e87;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="ribbon">
+    <b>연말 성수기 맞춤 AI 비서 시연 샘플</b> · 모드라운지 대표님 제안용<br>
+    실제 공개된 공식 정보를 바탕으로 제작한 체험 페이지입니다
+  </div>
+
+  <header class="hero">
+    <span class="hero-badge">연말 모임 파티룸 · 송년회·크리스마스 단독 대관</span>
+    <h1>모드라운지</h1>
+    <p class="loc">📍 서울 강남구 테헤란로22길 11 모닝타워 B1</p>
+    <p class="tagline">연말 송년회, 기업 워크숍, 프라이빗 파티를 위한 단독 공간 대관을 안내합니다.</p>
+    <div class="chips"><span>단독 공간 대관</span><span>연말 송년회</span><span>기업 워크숍</span><span>강남·홍대 지점</span></div>
+  </header>
+
+  <section class="voice-sec">
+    <div class="assistant-card" id="aCard">
+      <div class="live-pill"><span class="live-dot"></span><span id="statusTxt">대기 중 · 버튼을 누르면 AI 비서가 음성 안내합니다</span></div>
+      <div class="avatar-stage" id="avStage" title="터치하여 음성 안내 재생/정지">
+        <span class="halo"></span>
+        <div class="avatar-frame" id="avFrame">
+          <img class="frame-img" src="../assistant.png" alt="AI 안내 비서">
+          <img class="frame-img" id="avOpen" src="../assistant-talk.png" alt="">
+        </div>
+      </div>
+      <div class="eq-bars" id="eqBars"></div>
+      <div class="sub-box" id="subBox">버튼을 누르시면 모드라운지 연말 이용 안내를 목소리로 들려드립니다.</div>
+      <button class="btn-listen" id="listenBtn" type="button">🔊 AI 비서 음성 안내 듣기</button>
+      <p class="hint">접속 시 무음 대기 · 터치 시 재생 (유지비 0원 한국어 AI 음성)</p>
+      <div class="topic-grid" id="topicGrid"></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>연말 성수기 주요 안내</h2>
+    <div class="menu-list">
+      <div class="menu-item">
+          <div><b>연말 송년회·파티 대관</b><small>우리 팀만 프라이빗하게 즐기는 단독 공간</small></div>
+          <span class="menu-tag">인원·시간별 견적</span>
+        </div>
+<div class="menu-item">
+          <div><b>기업 워크숍·세미나</b><small>프로젝터·음향 등 모임 장비 문의 가능</small></div>
+          <span class="menu-tag">사전 일정 조율</span>
+        </div>
+<div class="menu-item">
+          <div><b>음식·음료 반입 안내</b><small>외부 케이터링·배달 이용 규정 확인</small></div>
+          <span class="menu-tag">지점별 안내</span>
+        </div>
+<div class="menu-item">
+          <div><b>야간·올나잇 패키지</b><small>연말 모임 시간대별 맞춤 대관</small></div>
+          <span class="menu-tag">전화·이메일 문의</span>
+        </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>업체 공식 연락처 (공개 정보 기준)</h2>
+    <div class="info-card">
+      <div class="info-row"><span>상호명</span><b>모드라운지</b></div>
+      <div class="info-row"><span>업종</span><b>연말 모임 파티룸</b></div>
+      <div class="info-row"><span>위치</span><b>서울 강남구 테헤란로22길 11 모닝타워 B1</b></div>
+      <div class="info-row"><span>전화번호</span><b>070-4138-1898</b></div>
+      <div class="info-row"><span>공개 이메일</span><b>modlounge.biz@modparty.co.kr</b></div>
+      <div class="info-row"><span>공식 사이트</span><b><a href="https://modlounge.co.kr" target="_blank" rel="noopener" style="color:var(--accent)">https://modlounge.co.kr</a></b></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>바로 연결 &amp; AI 비서 제작 문의</h2>
+    <div class="cta-box">
+      <a class="cbtn cbtn-shop" href="tel:07041381898" >📞 070-4138-1898</a>
+      <p class="ct" style="margin-top:6px">이 샘플을 우리 가게 정식 AI 비서로 쓰시겠어요?</p>
+      <p class="cs">1인기업 양철배 · 목소리/메뉴/사진 맞춤 제작 + 1초 앱 설치 포함</p>
+      <a class="cbtn cbtn-kakao" href="https://qr.kakao.com/talk/i5Owia7P_L48dp7IxoxgLOu_SuE-" target="_blank" rel="noopener">🟡 카카오톡 제작 문의 (ID: yang3919)</a>
+      <a class="cbtn cbtn-maker" href="tel:01090915719">📞 제작자 직통 전화 (010-9091-5719)</a>
+      <a class="cbtn cbtn-back" href="../">← 연말 성수기 10곳 전시장·정리표로 돌아가기</a>
+    </div>
+  </section>
+
+  <footer>
+    본 페이지는 모드라운지의 공식 공개 정보를 바탕으로 제작된 AI 비서 제안용 시연 샘플입니다.<br>
+    실제 납품 계약 전 예시 페이지이며, 과장·허위 후기나 가짜 예약 건수를 사용하지 않습니다.
+  </footer>
+</div>
+
+<div id="pwaBanner">
+  <div><b>📱 모드라운지 1초 앱 설치</b><span>스토어 심사 없이 바탕화면에 바로 저장</span></div>
+  <button id="pwaInstBtn" type="button">1초 설치</button>
+</div>
+
+<div id="pwaModal">
+  <div class="modal-card">
+    <h3>📱 1초 바탕화면 앱 설치 안내</h3>
+    <p>
+      • <b>안드로이드 크롬:</b> 우측 상단 <b>⋮ 메뉴 → 홈 화면에 추가</b>를 누르세요.<br><br>
+      • <b>아이폰 사파리:</b> 하단 <b>공유(□↑) → 홈 화면에 추가</b>를 누르세요.<br><br>
+      • <b>카카오톡 내 화면:</b> 우측 하단 <b>⋮ → 다른 브라우저(크롬/사파리)로 열기</b> 후 설치하시면 바로 아이콘이 생깁니다.
+    </p>
+    <button class="modal-close" type="button" onclick="document.getElementById('pwaModal').classList.remove('open')">확인</button>
+  </div>
+</div>
+
+<script>
+const TRACKS = [{"icon": "🎉", "label": "연말 대관 안내", "sub": "송년회·프라이빗 파티", "script": "반갑습니다. 모드라운지 AI 안내 비서입니다. 연말 송년회와 크리스마스 모임, 기업 워크숍을 위한 단독 프라이빗 공간 대관 안내를 도와드립니다. 날짜와 인원만 정해 주시면 빠르게 확인하실 수 있습니다.", "src": "./t0.mp3"}, {"icon": "🎤", "label": "시설 및 이용 수칙", "sub": "장비·음식 반입 안내", "script": "모임 목적에 따라 지점별 수용 인원과 구비 장비가 다릅니다. 외부 음식 반입 여부와 주차, 시간 연장 규정을 미리 확인하시면 행사 당일 불편 없이 이용하실 수 있습니다.", "src": "./t1.mp3"}, {"icon": "📞", "label": "대관 견적·위치", "sub": "강남 역삼 · 070 전화", "script": "본사 위치는 서울 강남구 테헤란로 22길 11 모닝타워 지하 1층이며, 대표 문의 전화는 070-4138-1898입니다. 단체 견적은 아래 전화 버튼이나 공식 이메일로 바로 문의해 주세요.", "src": "./t2.mp3"}, {"icon": "📱", "label": "1초 앱 설치 안내", "sub": "모임 멤버 공유용", "script": "화면 아래 일 초 설치 버튼으로 폰 바탕화면에 저장해 두시면, 모임 당일 위치와 연락처를 멤버들과 바로 공유하실 수 있습니다.", "src": "./t3.mp3"}];
+const aCard = document.getElementById('aCard');
+const avFrame = document.getElementById('avFrame');
+const avOpen = document.getElementById('avOpen');
+const statusTxt = document.getElementById('statusTxt');
+const subBox = document.getElementById('subBox');
+const listenBtn = document.getElementById('listenBtn');
+const topicGrid = document.getElementById('topicGrid');
+const eqBarsWrap = document.getElementById('eqBars');
+
+const EQ_N = 14;
+const eqBars = [];
+for (let i = 0; i < EQ_N; i++) {
+  const d = document.createElement('div');
+  d.className = 'eq-bar';
+  eqBarsWrap.appendChild(d);
+  eqBars.push(d);
+}
+
+let curIdx = 0, playing = false, audioEl = null, ctx = null, analyser = null, srcNode = null, rafId = null, smoothM = 0;
+const td = new Uint8Array(128), fd = new Uint8Array(128);
+
+function renderTopics() {
+  topicGrid.innerHTML = '';
+  TRACKS.forEach((t, i) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'topic-btn' + (i === curIdx ? ' active' : '');
+    btn.innerHTML = `<span class="ico">${t.icon}</span><div><b>${t.label}</b><span>${t.sub}</span></div>`;
+    btn.onclick = () => playTrack(i);
+    topicGrid.appendChild(btn);
+  });
+}
+renderTopics();
+
+function stopAudio() {
+  if (audioEl) { try { audioEl.pause(); audioEl.currentTime = 0; } catch(e){} }
+  if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+  playing = false;
+  aCard.classList.remove('speaking');
+  listenBtn.classList.remove('speaking');
+  listenBtn.textContent = '🔊 AI 비서 음성 안내 듣기';
+  statusTxt.textContent = '대기 중 · 버튼을 누르면 AI 비서가 음성 안내합니다';
+  avOpen.style.opacity = 0;
+  avFrame.style.transform = '';
+  eqBars.forEach(b => b.style.height = '4px');
+}
+
+async function playTrack(idx) {
+  curIdx = idx;
+  renderTopics();
+  if (audioEl) { try { audioEl.pause(); } catch(e){} }
+  if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+  const tr = TRACKS[idx];
+  subBox.textContent = tr.script;
+  aCard.classList.add('speaking');
+  listenBtn.classList.add('speaking');
+  listenBtn.textContent = '⏹ 음성 안내 멈추기';
+  statusTxt.textContent = '🔊 안내 중 · ' + tr.label;
+
+  audioEl = new Audio(tr.src);
+  audioEl.crossOrigin = 'anonymous';
+  let useWebAudio = false;
+  try {
+    const C = window.AudioContext || window.webkitAudioContext;
+    if (C) {
+      if (!ctx) ctx = new C();
+      if (ctx.state === 'suspended') await ctx.resume();
+      analyser = ctx.createAnalyser();
+      analyser.fftSize = 256;
+      srcNode = ctx.createMediaElementSource(audioEl);
+      srcNode.connect(analyser);
+      analyser.connect(ctx.destination);
+      useWebAudio = true;
+    }
+  } catch(e) { useWebAudio = false; }
+
+  playing = true;
+  audioEl.onended = () => {
+    stopAudio();
+    statusTxt.textContent = '✅ 안내 완료 · 다른 주제 버튼을 눌러 보세요';
+  };
+  try {
+    await audioEl.play();
+    loop(useWebAudio);
+  } catch(e) {
+    statusTxt.textContent = '화면 자막으로 안내해 드립니다';
+  }
+}
+
+function loop(useWebAudio) {
+  function frame(ts) {
+    if (!playing) return;
+    let energy = 0;
+    if (useWebAudio && analyser) {
+      analyser.getByteTimeDomainData(td);
+      let sq = 0;
+      for (let i = 0; i < td.length; i++) { const v = (td[i] - 128) / 128; sq += v * v; }
+      const rms = Math.sqrt(sq / td.length);
+      energy = rms < 0.02 ? 0 : Math.min(1, (rms - 0.02) * 7.5);
+      analyser.getByteFrequencyData(fd);
+      for (let i = 0; i < EQ_N; i++) {
+        const val = fd[Math.floor(2 + i * 2.2)] || 0;
+        eqBars[i].style.height = Math.max(4, Math.min(20, (val / 255) * 22)).toFixed(0) + 'px';
+      }
+    } else {
+      const gate = Math.sin(ts * 0.003) > -0.55 ? 1 : 0;
+      energy = (Math.sin(ts * 0.018) * 0.5 + 0.5) * gate * 0.85;
+      for (let i = 0; i < EQ_N; i++) eqBars[i].style.height = (4 + Math.abs(Math.sin(ts * 0.012 + i * 0.6)) * 14 * gate).toFixed(0) + 'px';
+    }
+    smoothM = smoothM * 0.42 + energy * 0.58;
+    avOpen.style.opacity = smoothM.toFixed(3);
+    const nod = Math.sin(ts * 0.004) * (1.5 + smoothM * 2.0);
+    avFrame.style.transform = `scale(${(1 + smoothM * 0.014).toFixed(4)}) translateY(${nod.toFixed(2)}px)`;
+    rafId = requestAnimationFrame(frame);
+  }
+  rafId = requestAnimationFrame(frame);
+}
+
+listenBtn.onclick = () => { if (playing) stopAudio(); else playTrack(curIdx); };
+document.getElementById('avStage').onclick = () => { if (playing) stopAudio(); else playTrack(curIdx); };
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js').catch(() => {});
+}
+let deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+});
+document.getElementById('pwaInstBtn').onclick = async () => {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
+    deferredPrompt = null;
+  } else {
+    document.getElementById('pwaModal').classList.add('open');
+  }
+};
+</script>
+</body>
+</html>

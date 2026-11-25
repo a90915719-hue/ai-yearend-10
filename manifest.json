@@ -1,0 +1,20 @@
+{
+  "name": "연말 성수기 10곳 AI 비서 전시장",
+  "short_name": "연말AI전시장",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f3f0e9",
+  "theme_color": "#111823",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
